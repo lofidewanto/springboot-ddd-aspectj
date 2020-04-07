@@ -1,4 +1,4 @@
-package com.lofi.example;
+package de.crowdcode.bitemporal.example;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

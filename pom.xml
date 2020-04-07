@@ -15,7 +15,10 @@
 	<description>Demo project for Spring Boot with DDD and AspectJ</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
+		<kissmda.maven.plugin.version>2.0.0</kissmda.maven.plugin.version>
+		<kissmda.cartridges.simple.java.version>2.0.2</kissmda.cartridges.simple.java.version>
+		<kissmda.extensions.importpacker.version>1.0.0</kissmda.extensions.importpacker.version>
 	</properties>
 
 	<dependencies>
@@ -62,7 +65,147 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>de.crowdcode.kissmda.maven</groupId>
+				<artifactId>kissmda-maven-plugin</artifactId>
+				<version>${kissmda.maven.plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>de.crowdcode.kissmda.cartridges</groupId>
+						<artifactId>kissmda-cartridges-simple-java</artifactId>
+						<version>${kissmda.cartridges.simple.java.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>de.crowdcode.kissmda.cartridges</groupId>
+						<artifactId>kissmda-extensions-import-packer</artifactId>
+						<version>${kissmda.extensions.importpacker.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<transformerNameWithOrders>
+						<!-- You put the transformers with order -->
+						<transformerNameWithOrder>
+							1:de.crowdcode.kissmda.extensions.importpacker.ImportPackerTransformer
+						</transformerNameWithOrder>
+						<transformerNameWithOrder>
+							2:de.crowdcode.kissmda.cartridges.simplejava.SimpleJavaTransformer
+						</transformerNameWithOrder>
+					</transformerNameWithOrders>
+					<modelFile>src/main/resources/model/emf/actual-temporal.uml</modelFile>
+					<loggingLevel>SEVERE</loggingLevel>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<configuration>
+							<source>${maven.compiler.source}</source>
+							<target>${maven.compiler.target}</target>
+							<verbose>true</verbose>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>test-compile</id>
+						<configuration>
+							<source>${maven.compiler.source}</source>
+							<target>${maven.compiler.target}</target>
+							<verbose>true</verbose>
+						</configuration>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											de.crowdcode.kissmda.maven
+										</groupId>
+										<artifactId>
+											kissmda-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.0.0,)
+										</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											aspectj-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.11,)
+										</versionRange>
+										<goals>
+											<goal>compile</goal>
+											<goal>test-compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

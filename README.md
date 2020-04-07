@@ -1,4 +1,4 @@
-# springboot-ddd-aspectj
+# Spring Boot Domain Driven Design (DDD) with AspectJ
 Example webapp based on Spring Boot and AspectJ which uses the concept of DDD and OOP
 
 # Example from Spring

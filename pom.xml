@@ -93,6 +93,17 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>de.crowdcode.kissmda.maven</groupId>
 				<artifactId>kissmda-maven-plugin</artifactId>
 				<version>${kissmda.maven.plugin.version}</version>
@@ -229,5 +240,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>

@@ -15,7 +15,7 @@
 	<description>Demo project for Spring Boot with DDD and AspectJ</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<kissmda.maven.plugin.version>2.0.0</kissmda.maven.plugin.version>
 		<kissmda.cartridges.simple.java.version>2.0.2</kissmda.cartridges.simple.java.version>
 		<kissmda.extensions.importpacker.version>1.0.0</kissmda.extensions.importpacker.version>
@@ -34,13 +34,10 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -134,15 +131,18 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>com.nickwongdev</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
 				<executions>
 					<execution>
 						<id>compile</id>
 						<configuration>
-							<source>${maven.compiler.source}</source>
-							<target>${maven.compiler.target}</target>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
 							<verbose>true</verbose>
+							<proc>none</proc>
+							<complianceLevel>${java.version}</complianceLevel>
+							<showWeaveInfo>true</showWeaveInfo>
 						</configuration>
 						<goals>
 							<goal>compile</goal>
@@ -151,15 +151,25 @@
 					<execution>
 						<id>test-compile</id>
 						<configuration>
-							<source>${maven.compiler.source}</source>
-							<target>${maven.compiler.target}</target>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
 							<verbose>true</verbose>
+							<proc>none</proc>
+							<complianceLevel>${java.version}</complianceLevel>
+							<showWeaveInfo>true</showWeaveInfo>
 						</configuration>
 						<goals>
 							<goal>test-compile</goal>
 						</goals>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjtools</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 		
@@ -195,7 +205,7 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>
-											org.codehaus.mojo
+											com.nickwongdev
 										</groupId>
 										<artifactId>
 											aspectj-maven-plugin

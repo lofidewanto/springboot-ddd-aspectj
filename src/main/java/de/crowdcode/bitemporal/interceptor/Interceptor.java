@@ -1,4 +1,4 @@
-package de.crowdcode.bitemporal.example;
+package de.crowdcode.bitemporal.interceptor;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,7 +25,7 @@ public class Interceptor {
 		this.message = message;
 	}
 
-	@Around("execution(* *(..)) && !within(de.crowdcode.bitemporal.example.Interceptor)"
+	@Around("execution(* *(..)) && !within(de.crowdcode.bitemporal.interceptor.Interceptor)"
 			+ " && (within(org.springframework.context.annotation.Condition+) || within(de.crowdcode..*))")
 	public Object intercept(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object result = joinPoint.proceed();
@@ -33,7 +33,7 @@ public class Interceptor {
 		return result;
 	}
 
-	@Around("execution(* *(..)) && within(de.crowdcode..*) && !within(de.crowdcode.bitemporal.example.Interceptor+)")
+	@Around("execution(* *(..)) && within(de.crowdcode..*) && !within(de.crowdcode.bitemporal.interceptor.Interceptor+)")
 	public Object stack(ProceedingJoinPoint joinPoint) throws Throwable {
 		logger.error("AspectJ stack: " + joinPoint.toShortString());
 		return joinPoint.proceed();

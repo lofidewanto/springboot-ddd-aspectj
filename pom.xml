@@ -44,6 +44,12 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -103,7 +109,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>	 
 			<plugin>
 				<groupId>de.crowdcode.kissmda.maven</groupId>
 				<artifactId>kissmda-maven-plugin</artifactId>
@@ -242,4 +248,25 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>com.nickwongdev</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.11</version>
+				<configuration>
+					<verbose>true</verbose>
+					<privateScope>true</privateScope>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>aspectj-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 @SpringBootTest
+@EnableSpringConfigured
 class PersonImplIT {
 
 	private final static Logger logger = LoggerFactory.getLogger(PersonImplIT.class);

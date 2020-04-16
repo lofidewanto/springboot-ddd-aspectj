@@ -2,7 +2,8 @@
 <aspectj>
     <weaver options="-Xreweavable -showWeaveInfo">
         <!-- Only weave classes with @Configurable interface -->
-        <include within="@org.springframework.beans.factory.annotation.Configurable *"/>
+        <include within="@org.springframework.beans.factory.annotation.Configurable"/>
         <include within="de.crowdcode.*" />
+        <include within="org.springframework..*" />
     </weaver>
 </aspectj>

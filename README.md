@@ -10,3 +10,5 @@ https://stackoverflow.com/questions/40472614/simple-configurable-with-modern-spr
 
 # Compile Time Weaving (CTW)
 ...
+
+Our current build status: ![Build Status GitHub Actions](https://github.com/lofidewanto/springboot-ddd-aspectj/actions/workflows/maven.yml/badge.svg)

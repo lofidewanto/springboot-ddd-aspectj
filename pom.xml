@@ -151,6 +151,7 @@
 			<plugin>
 				<groupId>com.nickwongdev</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.12.6</version>
 				<executions>
 					<execution>
 						<id>compile</id>
